@@ -1,0 +1,32 @@
+{
+  "name": "reactcli",
+  "version": "1.0.0",
+  "description": "react CLI manager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vsmirnova/reactCLI.git"
+  },
+  "keywords": [
+    "REACT",
+    "CLI"
+  ],
+  "author": "vsmirnova",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vsmirnova/reactCLI/issues"
+  },
+  "homepage": "https://github.com/vsmirnova/reactCLI#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.13.0",
+    "create-react-app": "^1.5.0",
+    "fs-extra": "^5.0.0",
+    "json": "^9.0.6",
+    "replace": "^0.3.0",
+    "shelljs": "^0.7.8"
+  }
+}
