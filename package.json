@@ -1,8 +1,11 @@
 {
-  "name": "reactcli",
+  "name": "initial-react-app",
   "version": "1.0.0",
   "description": "react CLI manager",
   "main": "index.js",
+  "bin": {
+    "rcli": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
