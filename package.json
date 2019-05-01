@@ -2,9 +2,9 @@
   "name": "initial-react-app",
   "version": "1.1.0",
   "description": "react CLI manager",
-  "main": "index.js",
+  "main": "bin/index.js",
   "bin": {
-    "rcli": "index.js"
+    "rcli": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,10 +26,11 @@
   "dependencies": {
     "colors": "^1.1.2",
     "commander": "^2.13.0",
-    "create-react-app": "^1.5.0",
+    "create-react-app": "^1.5.2",
     "fs-extra": "^5.0.0",
     "json": "^9.0.6",
     "replace": "^0.3.0",
     "shelljs": "^0.7.8"
-  }
+  },
+  "devDependencies": {}
 }
