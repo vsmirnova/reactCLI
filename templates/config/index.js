@@ -76,9 +76,9 @@ module.exports = {
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
 
-    // Run the build command with an extra argument to
-    // View the bundle analyzer report after build finishes:
-    // `npm run build --report`
+    // Run the webpack command with an extra argument to
+    // View the bundle analyzer report after webpack finishes:
+    // `npm run webpack --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
   }

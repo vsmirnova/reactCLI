@@ -19,9 +19,9 @@
     "react-router-redux": "^5.0.0-alpha.9"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --config build/webpack.dev.js",
+    "start": "webpack-dev-server --inline --progress --config webpack/webpack.dev.js",
     "start-serve": "webpack-dev-server --hot --open --config webpack.dev.js",
-    "build": "node build/build.js",
+    "build": "node webpack/build.js",
     "build-dev": "webpack --config webpack.dev.js",
     "test": "jest"
   },
