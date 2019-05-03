@@ -68,9 +68,10 @@ async function createProject(dir, cmd) {
 function createReactApp() {
     return new Promise((resolve, reject) => {
         console.log('Creating react app...'.yellow);
-        console.log(require('path').dirname(require.main.filename).bold());
+        console.log(path.resolve(__dirname, '../'));
+        console.log(require('path').dirname(require.main.filename));
 
-        shell.exec(`node ${require('path').dirname(require.main.filename)}/node_modules/create-react-app/index.js ${projectName}`,
+        shell.exec(`node ${path.resolve(__dirname, '../')}/node_modules/create-react-app/index.js ${projectName}`,
             (e, stdout, stderr) => {
                 console.log('e', e);
                 console.log('stdout', stdout);
@@ -79,7 +80,7 @@ function createReactApp() {
                     if (e === 1) {
                         console.log(`create-react-app not installed`.red);
                         console.log('Installing create-react-app...'.yellow);
-                        shell.exec(`npm install create-react-app`, (e, stdout, stderr) => {
+                        shell.exec(`npm install -g create-react-app`, (e, stdout, stderr) => {
                             if (stderr) {
                                 reject();
                             } else {

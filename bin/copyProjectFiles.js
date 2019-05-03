@@ -41,6 +41,8 @@ function copyFolderRecursiveSync( source, target ) {
 
 function copyProjectFiles(projectDirictory, projectName) {
     return new Promise((resolve, reject) => {
+        console.log('source', path.resolve(__dirname, '../', 'templates', 'build'));
+        console.log('target', projectDirictory);
         copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'build'), projectDirictory);
         copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'config'), projectDirictory);
         copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'static'), projectDirictory);
