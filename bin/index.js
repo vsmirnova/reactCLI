@@ -1,13 +1,17 @@
 #!/usr/bin/env node
-let program = require('commander/typings');
+let program = require('commander');
 let fs = require('fs-extra');
 let shell = require('shelljs');
-let colors = require('colors');
+const path = require('path');
 let readline = require('readline');
-
+let colors = require('colors');
 let projectName;
 let projectDirectory;
 const packageJson = require('../package.json');
+
+
+let generatePackage = require('./generatePackage');
+let copyProjectFiles = require('./copyProjectFiles');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -31,13 +35,20 @@ async function createProject(dir, cmd) {
         process.exit(1);
     } else {
         if (cmd.webpack) {
-            fs.mkdirSync(projectDirectory);
-            await createWebpack()
-                .then(() => {
-                    console.log('SUCCESS!!')
+            await generatePackage(projectName, projectDirectory)
+                .then(async () => {
+                    console.log('Created package.json'.green);
+                    await copyProjectFiles(projectDirectory, projectName)
+                        .then(() => {
+                            console.log('SUCCESS!')
+                        })
+                        .catch(() => {
+                            console.log('ERROR!')
+                        })
                 })
                 .catch(() => {
-                    console.log('ERROR!!!!')
+                    console.log('Something went wrong while trying to create a new ReactApp'.red);
+                    process.exit(1);
                 })
         } else {
             await createReactApp()
@@ -85,16 +96,6 @@ function createReactApp() {
                     resolve();
                 }
             });
-    })
-}
-
-function createWebpack() {
-    return new Promise((resolve, reject) => {
-        /*shell.exec('npm init', { cwd: projectDirectory }, (e) => {
-            console.log('FFFF');
-            resolve();
-        })*/
-        fs.copySync(`${require('path').dirname(require.main.filename)}/templates/package.json`, `${projectDirectory}`);
     })
 }
 
