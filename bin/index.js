@@ -68,6 +68,7 @@ async function createProject(dir, cmd) {
 function createReactApp() {
     return new Promise((resolve, reject) => {
         console.log('Creating react app...'.yellow);
+        console.log(require('path').dirname(require.main.filename).bold());
 
         shell.exec(`node ${require('path').dirname(require.main.filename)}/node_modules/create-react-app/index.js ${projectName}`,
             (e, stdout, stderr) => {
