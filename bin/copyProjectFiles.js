@@ -48,6 +48,7 @@ function copyProjectFiles(projectDirictory, projectName) {
         copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'static'), projectDirictory);
         copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'src'), projectDirictory);
         copyFileSync(path.resolve(__dirname, '../', 'templates', '.babelrc'), projectDirictory);
+        resolve();
     })
 
 }

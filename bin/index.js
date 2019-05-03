@@ -44,6 +44,7 @@ async function createProject(dir, cmd) {
                         })
                         .catch(() => {
                             console.log('ERROR!')
+                            process.exit(1);
                         })
                 })
                 .catch(() => {
