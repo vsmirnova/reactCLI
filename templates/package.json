@@ -9,14 +9,9 @@
   "author": "{{author}}",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
-    "history": "^4.7.2",
     "prop-types": "^15.6.1",
-    "qs": "^6.5.2",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-router-dom": "^4.2.2",
-    "react-router-redux": "^5.0.0-alpha.9"
+    "react-dom": "^16.5.2"
   },
   "scripts": {
     "start": "webpack-dev-server --inline --progress --config webpack/webpack.dev.js",
