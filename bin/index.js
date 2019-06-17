@@ -12,12 +12,15 @@ let projectDirectory;
 let newCompPath;
 let functional;
 let connect;
+let isRedux;
+let isRouter;
 const packageJson = require('../package.json');
 
 
 let generatePackage = require('./generatePackage');
 let copyConfigFiles = require('./copyConfigFiles');
 let installModules = require('./addModules');
+let initSrcDirectory = require('./initSrcDirectory');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -28,7 +31,6 @@ program
     .version(packageJson.version)
     .command('init <dir>')
     .option('-W , --webpack', 'Install with webpack')
-    .option('-T , --typscript', 'Install with typescript')
     .action(createProject)
 program
     .version(packageJson.version)
@@ -38,6 +40,14 @@ program
     .action(createComponent);
 
 program.parse(process.argv)
+
+function setIsRouter (val) {
+    isRouter = val
+}
+
+function setIsRedux (val) {
+    isRedux = val
+}
 
 async function createProject(dir, cmd) {
     projectName = dir;
@@ -72,15 +82,33 @@ async function createProject(dir, cmd) {
                     console.log('Something went wrong while trying to install modules'.red)
                     process.exit(1);
                 })
+            await initSrcDirectory(projectDirectory, projectName, isRouter, isRedux)
+                .then(() => {
+                    console.log('Success'.green)
+                })
         } else {
             await createReactApp()
                 .then(async () => {
                     console.log('Finished creating new ReactApp'.green);
-                    //await installPackages();
                 })
                 .catch(() => {
                     console.log('Something went wrong while trying to create a new ReactApp'.red);
                     process.exit(1);
+                })
+            await installModules(projectDirectory, projectName)
+                .then(({isRouter, isRedux}) => {
+                    console.log('Installing modules'.green);
+                    console.log('isRouter, isRedux', isRouter, isRedux)
+                    setIsRouter(isRouter);
+                    setIsRedux(isRedux);
+                })
+                .catch(() => {
+                    console.log('Something went wrong while trying to install modules'.red)
+                    process.exit(1);
+                })
+            await initSrcDirectory(projectDirectory, projectName, isRouter, isRedux)
+                .then(() => {
+                    console.log('Success'.green)
                 })
         }
 
@@ -90,9 +118,6 @@ async function createProject(dir, cmd) {
 function createReactApp() {
     return new Promise((resolve, reject) => {
         console.log('Creating react app...'.yellow);
-        console.log(path.resolve(__dirname, '../'));
-        console.log(require('path').dirname(require.main.filename));
-
         shell.exec(`node ${path.resolve(__dirname, '../')}/node_modules/create-react-app/index.js ${projectName}`,
             (e, stdout, stderr) => {
                 console.log('e', e);
@@ -133,6 +158,7 @@ async function createComponent(component, cmd) {
     let template = await buildTemplate();
     writeFile(template, component)
 }
+
 function buildTemplate() {
     let imports = [template.imports.react, template.imports.propTypes];
     if (connect) {
@@ -145,9 +171,11 @@ function buildTemplate() {
     let exported = connect ? [template.exported.connectStateAndDispatch] : [template.exported.default];
     return imports.join('\n') + '\n' + body + '\n' + exported;
 }
+
 function capitalize(comp) {
     return comp[0].toUpperCase() + comp.substring(1, comp.length);
 }
+
 function writeFile(template, component) {
     let path = newCompPath;
     let comp = component.split('/');

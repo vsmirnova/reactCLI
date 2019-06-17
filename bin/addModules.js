@@ -20,10 +20,13 @@ function addModules(appDirectory) {
                     ]
                 }
             ])
-            .then(answers => {
-                // shell.exec(`npm install`, { cwd: appDirectory });
-                shell.exec(`npm install -S ${answers.modules.join(' ')}`, { cwd: appDirectory });
-            })
+            .then(async answers => {
+                if (!fs.existsSync(`${appDirectory}/node_modules`)) {
+                    await shell.exec(`npm install`, { cwd: appDirectory });
+                }
+                await shell.exec(`npm install -S ${answers.modules.join(' ')}`, { cwd: appDirectory });
+                await resolve({isRouter: answers.modules.includes('react-router-dom'), isRedux: answers.modules.includes('react-redux')})
+            });
     })
 }
 

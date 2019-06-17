@@ -39,13 +39,17 @@ function copyFolderRecursiveSync( source, target ) {
     }
 }
 
-function copyConfigFiles(projectDirictory, projectName) {
+function copyConfigFiles(projectDirectory, projectName) {
     return new Promise((resolve, reject) => {
-        copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'webpack'), projectDirictory);
-        copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'config'), projectDirictory);
-        copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'static'), projectDirictory);
-        copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'src'), projectDirictory);
-        copyFileSync(path.resolve(__dirname, '../', 'templates', '.babelrc'), projectDirictory);
+        copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'webpack'), projectDirectory);
+        copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'config'), projectDirectory);
+        copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'static'), projectDirectory);
+        //copyFolderRecursiveSync(path.resolve(__dirname, '../', 'templates', 'src'), projectDirectory);
+        copyFileSync(path.resolve(__dirname, '../', 'templates', '.babelrc'), projectDirectory);
+        copyFileSync(path.resolve(__dirname, '../', 'templates', 'gitignore'), projectDirectory);
+        fs.rename(`${projectDirectory}/gitignore`, `${projectDirectory}/.gitignore`, function(err) {
+            if ( err ) console.log('ERROR: ' + err);
+        });
         resolve();
     })
 
