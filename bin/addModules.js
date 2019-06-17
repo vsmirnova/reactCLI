@@ -21,8 +21,7 @@ function addModules(appDirectory) {
                 }
             ])
             .then(answers => {
-                console.log(answers.modules)
-                shell.exec(`npm install`, { cwd: appDirectory });
+                // shell.exec(`npm install`, { cwd: appDirectory });
                 shell.exec(`npm install -S ${answers.modules.join(' ')}`, { cwd: appDirectory });
             })
     })

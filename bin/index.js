@@ -27,9 +27,11 @@ const rl = readline.createInterface({
 program
     .version(packageJson.version)
     .command('init <dir>')
-    .option('-W , --build', 'Install with build')
+    .option('-W , --webpack', 'Install with webpack')
+    .option('-T , --typscript', 'Install with typescript')
     .action(createProject)
 program
+    .version(packageJson.version)
     .command('createComp <component>')
     .option('-C, --connect', 'Make connected')
     .option('-F, --functional', 'Create functional component')
