@@ -75,8 +75,10 @@ async function createProject(dir, cmd) {
                     process.exit(1);
                 })
             await installModules(projectDirectory, projectName)
-                .then(() => {
-                    console.log('Installing modules'.green)
+                .then(({isRouter, isRedux}) => {
+                    console.log('Installing modules'.green);
+                    setIsRouter(isRouter);
+                    setIsRedux(isRedux);
                 })
                 .catch(() => {
                     console.log('Something went wrong while trying to install modules'.red)
@@ -98,7 +100,6 @@ async function createProject(dir, cmd) {
             await installModules(projectDirectory, projectName)
                 .then(({isRouter, isRedux}) => {
                     console.log('Installing modules'.green);
-                    console.log('isRouter, isRedux', isRouter, isRedux)
                     setIsRouter(isRouter);
                     setIsRedux(isRedux);
                 })

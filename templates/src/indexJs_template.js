@@ -16,7 +16,7 @@ import redusers from './redusers'
 
 const main_default = `ReactDOM.render(
     <App/>,
-    document.getElementById("index")
+    document.getElementById("root")
     );
 `;
 
