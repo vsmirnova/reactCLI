@@ -2,9 +2,9 @@
   "name": "initial-react-app",
   "version": "2.0.0",
   "description": "react CLI manager",
-  "main": "bin/index.js",
+  "main": "index.js",
   "bin": {
-    "rcli": "bin/index.js"
+    "rcli": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

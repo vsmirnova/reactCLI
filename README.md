@@ -1,10 +1,11 @@
-# generate-react-create-app
+# initial-react-app
 
 Приложение, которое гененрирует стартовый шаблон приложения с router, redux, saga.
 <br>
 Также может создавать новые компоненты и redux-модули.
 <br>
-## Install
+
+## Установка
 
 Run
 

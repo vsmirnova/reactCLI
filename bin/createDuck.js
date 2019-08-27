@@ -31,7 +31,7 @@ function addSaga(name) {
 }
 
 
-function createDuck() {
+function addDuck() {
     return new Promise((resolve, reject) => {
         try {
             let contents = fs.readFileSync(path.resolve(__dirname, '../', 'templates', 'src', 'ducks', 'test.js'), 'utf-8');
@@ -43,35 +43,29 @@ function createDuck() {
 }
 
 
-function createActions(name) {
+function createDuck(name) {
 
-    return new Promise(async (resolve, reject) => {
-        try {
-            createDuck().then(result => {
-                fs.writeFile(`src/ducks/${name}.js`, result, (error) => {
-                        if (error) reject();
-                        resolve();
-                    });
-            });
-            addReducer(name)
-                .then(result => {
-                    fs.writeFile(`src/store/reducer.js`, result, (error) => {
-                        if (error) reject();
-                        resolve();
-                    });
-                });
-            addSaga(name)
-                .then(result => {
-                    fs.writeFile(`src/store/saga.js`, result, (error) => {
-                        if (error) reject();
-                        resolve();
-                    });
-                });
-        } catch (e) {
-            reject();
+    return new Promise((resolve, reject) => {
+        if (!fs.existsSync(`./src/ducks/${name}.js`)) {
+            Promise.all([addDuck(), addReducer(name), addSaga(name)])
+                .then(async (result) => {
+                    const [duck, reducer, saga] = result;
+                    try {
+                        await fs.writeFileSync(`src/ducks/${name}.js`, duck);
+                        await fs.writeFileSync(`src/store/reducer.js`, reducer);
+                        await fs.writeFileSync(`src/store/saga.js`, saga);
+                        await resolve(`Module ${name} created at src/ducks/${name}.js`)
+                    } catch (e) {
+                        reject('Error')
+                    }
+                })
+                .catch(error => reject(error))
+        } else {
+            reject(`Duck ${name} allready exists at src/ducks/${name}.js, choose another name if you want to create a new duck`);
         }
-    })
+
+    });
 }
 
 
-module.exports = createActions;
+module.exports = createDuck;
