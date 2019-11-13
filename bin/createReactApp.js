@@ -14,7 +14,7 @@ function createReactApp(projectDirectory, projectName) {
                 console.log("e", e);
                 console.log("stdout", stdout);
                 console.log("stderr", stderr);
-                if (stderr) {
+                if (e) {
                     if (e === 1) {
                         console.log(`create-react-app not installed`.red);
                         console.log("Installing create-react-app...".yellow);

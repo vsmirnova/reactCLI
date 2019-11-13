@@ -6,10 +6,12 @@ let colors = require('colors');
 
 function installModules(appDirectory) {
     return new Promise((resolve, reject) => {
-        if (!fs.existsSync(`${appDirectory}/node_modules`)) {
+        console.log('5555');
+        /*if (!fs.existsSync(`${appDirectory}/node_modules`)) {
             shell.exec(`npm install`, { cwd: appDirectory });
-        }
+        }*/
         shell.exec(`npm install -S react-router-dom axios redux react-redux redux-saga connected-react-router history redux-logger reselect prop-types`, { cwd: appDirectory }, (error, stdout, stderr) => {
+
             if (error) {
                 reject()
             } else resolve()
